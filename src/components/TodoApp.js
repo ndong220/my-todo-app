@@ -9,7 +9,8 @@ import axios from "axios";
 function TodoApp() {
 
     const [state, setState] = useState({
-        todos: []
+        todos: [],
+        newTodo : "",
     });
     const handleCheckboxChange = id => {
         setState({
@@ -45,6 +46,17 @@ function TodoApp() {
                 })
             });
     };
+    const editTodo = (id) => {
+        const newTodo = prompt('let')
+        const { todos} = state;
+        todos.filter(todos => {
+            if (todos.id === id ) {
+                todos.title =newTodo
+            }
+            return todos
+        })
+        setState({todos});
+    };
 
     useEffect(() => {
         const config = {
@@ -64,7 +76,9 @@ function TodoApp() {
             <AddTodo addTodo={addTodo} />
             <Todos todos={state.todos}
                 handleChange={handleCheckboxChange}
-                deleteTodo={deleteTodo} />
+                deleteTodo={deleteTodo}
+                editTodo={editTodo}
+                />
         </div>
     );
 
